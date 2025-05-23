@@ -18,6 +18,9 @@
     <a href="{% url 'post_detail' post.id %}" class="text-indigo-600 font-medium hover:underline mt-6 block">
       <h2 class="text-xl font-semibold mb-2 text-indigo-600">{{ post.title }}</h2>
       <p class="text-gray-700 text-sm mb-4">{{ post.body|truncatewords:30 }}</p>
+      <p class="text-gray-500 text-xs italic">
+        Comentários: {{ post.comments.count }}
+      </p>
       <div class="mt-auto">
         <div class="text-gray-500 text-xs mt-2">
           <i class="fa-regular fa-calendar-alt mr-1"></i>{{ post.created_at }}

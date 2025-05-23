@@ -1,19 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<main class="container mx-auto px-4 py-10">
+  <article class="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
+    <h2 class="text-3xl font-bold text-indigo-700 mb-4">{{ post.title }}</h2>
+    <p class="text-sm text-gray-500 mb-6">{{ post.created_at }}</p>
+    <div class="prose max-w-none text-gray-800">
+      {{ post.body|linebreaks }}
+    </div>
 
-  <main class="container mx-auto px-4 py-10">
-    <article class="bg-white rounded-xl shadow-lg p-8 max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold text-indigo-700 mb-4">{{ post.title }}</h2>
-      <p class="text-sm text-gray-500 mb-6">
-        {{ post.created_at }}
-      </p>
-      <div class="prose max-w-none text-gray-800">
-        {{ post.body|linebreaks }}
+    <div class="mt-10">
+      <a href="{% url 'home' %}" class="text-indigo-600 hover:underline">&larr; Voltar para a Home</a>
+    </div>
+  </article>
+
+  <!-- Comentários -->
+  <section class="max-w-3xl mx-auto mt-10 bg-white rounded-xl shadow p-6">
+    <h3 class="text-xl font-semibold mb-4 text-gray-800">Comentários</h3>
+
+    {% if post.comments.all %}
+      <ul class="space-y-4">
+        {% for comment in post.comments.all %}
+          <li class="border-b pb-4">
+            <p class="text-gray-700">{{ comment.body|linebreaks }}</p>
+            <div class="text-sm text-gray-500 mt-2">
+              Comentado por <span class="font-medium text-gray-800">{{ comment.author.username }}</span> em {{ comment.created_at }}
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-gray-500">Nenhum comentário ainda. Seja o primeiro a comentar!</p>
+    {% endif %}
+  </section>
+
+  <!-- Formulário de novo comentário -->
+  <section class="max-w-3xl mx-auto mt-8 bg-white rounded-xl shadow p-6">
+    <h4 class="text-lg font-semibold mb-4 text-gray-800">Deixe um comentário</h4>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-4">
+        {{ form.body.label_tag }}
+        {{ form.body }}
+        {% if form.body.errors %}
+          <p class="text-sm text-red-600 mt-1">{{ form.body.errors.0 }}</p>
+        {% endif %}
       </div>
-      <div class="mt-10">
-        <a href="{% url 'home' %}" class="text-indigo-600 hover:underline">&larr; Voltar para a Home</a>
+      <div>
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Comentar</button>
       </div>
-    </article>
-  </main>
+    </form>
+  </section>
+</main>
 {% endblock %}
