@@ -1,0 +1,46 @@
+{% load static %}
+
+<nav class="w-full bg-gradient-to-r from-blue-800 to-blue-600 py-4">
+  <div class="flex items-center justify-between px-6 md:px-12">
+    <!-- Logo à esquerda -->
+    <a href="{% url 'home' %}" class="text-white font-bold text-lg">
+      Django App
+    </a>
+
+    <!-- Links centralizados com ícones -->
+    <div class="flex-1 flex justify-center">
+      <ul class="flex space-x-6">
+        <li>
+          <a href="{% url 'post_new' %}" 
+             class="flex items-center space-x-2 px-3 py-2 bg-white bg-opacity-20 text-white rounded-md hover:bg-opacity-40 transition duration-300 ease-in-out font-medium">
+            <i class="fas fa-plus"></i>
+            <span>Criar novo post</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Espaço vazio para balancear o layout -->
+    <div class="w-24"></div>
+
+    <!-- User div with dropdown -->
+    <div class="relative" x-data="{ open: false }">
+      <button @click="open = !open" class="flex items-center bg-white bg-opacity-20 text-white rounded-md p-2 hover:bg-opacity-40 transition duration-300 ease-in-out">
+        
+        <img alt="User Avatar" src="{% static 'aplicativo_django/avatar.ico' %}" class="w-8 h-8 rounded-full">
+        <span class="username font-medium ml-2">admin</span>
+        <i class="fas fa-chevron-down ml-2"></i>
+      </button>
+      <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click.away="open = false" class="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg z-10">
+          <a href="{% url 'settings' %}" class="w-full text-left block text-sm font-medium hover:bg-gray-200 px-4 py-2">Settings</a>
+        <button class="w-full text-left block text-sm font-medium hover:bg-gray-200 px-4 py-2">Notifications</button>
+        <div class="border-t border-gray-200"></div>
+        <form action="{% url 'logout' %}" method="post" class="block">
+          {% csrf_token %}
+          <button type="submit" class="w-full text-left text-sm font-medium hover:bg-gray-200 px-4 py-2">Logout</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+

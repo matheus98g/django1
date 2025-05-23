@@ -1,0 +1,12 @@
+from django import forms
+from .models import Posts
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Posts
+        fields = ('title', 'body')
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'rounded-lg border border-gray-300 p-2', 'placeholder': 'Título'}),
+            'body': forms.Textarea(attrs={'class': 'rounded-lg border border-gray-300 p-2', 'placeholder': 'Conteúdo'}),
+        }
+

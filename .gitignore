@@ -1,0 +1,84 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# If using SQLite, ignore DB file and journal
+*.sqlite3
+*.sqlite3-journal
+
+# Media files (uploads)
+media/
+uploads/
+
+# Static files collected
+staticfiles/
+
+# Environment variables
+.env
+.env.*
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# VS Code settings
+.vscode/
+
+# PyCharm
+.idea/
+
+# Mac system files
+.DS_Store
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# pytype
+.pytype/
+
+# Pycharm
+.idea/
+
+# Celery beat schedule file
+celerybeat-schedule
+
+# Django migrations (optional, usually you commit migrations)
+# If you want to ignore migrations (not recommended for production):
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# Logs
+logs/
+
+# Docker files (if any)
+docker-compose.override.yml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
