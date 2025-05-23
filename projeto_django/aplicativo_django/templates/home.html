@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
+{% load tz %}
 
 {% block content %}
+
+{% now "Y-m-d" as today_date %}
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-10">
   {% for post in posts %}
   <div class="relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 flex flex-col justify-between">
-    
+
     <!-- Botão de deletar no canto superior direito -->
     <button 
       type="button" 
@@ -14,7 +17,7 @@
       data-post-id="{{ post.id }}">
       &times;
     </button>
-    
+
     <a href="{% url 'post_detail' post.id %}" class="text-indigo-600 font-medium hover:underline mt-6 block">
       <h2 class="text-xl font-semibold mb-2 text-indigo-600">{{ post.title }}</h2>
       <p class="text-gray-700 text-sm mb-4">{{ post.body|truncatewords:30 }}</p>
@@ -23,7 +26,12 @@
       </p>
       <div class="mt-auto">
         <div class="text-gray-500 text-xs mt-2">
-          <i class="fa-regular fa-calendar-alt mr-1"></i>{{ post.created_at }}
+          <i class="fa-regular fa-calendar-alt mr-1"></i>
+          {% if post.created_at|date:"Y-m-d" == today_date %}
+            Hoje
+          {% else %}
+            {{ post.created_at|date:"d/m/Y" }}
+          {% endif %}
         </div>
         <div>
           <p class="text-gray-500 text-xs italic">Publicado por {{ post.author.username }}</p>
@@ -54,7 +62,6 @@
   </div>
 </div>
 
-
 <script>
   const modal = document.getElementById('delete-modal');
   const modalBox = document.getElementById('modal-box');
@@ -79,7 +86,7 @@
     modalBox.classList.add('opacity-0', 'scale-95');
     setTimeout(() => {
       modal.classList.add('hidden');
-    }, 150); // espera a duração da animação
+    }, 150);
   }
 
   cancelBtn.addEventListener('click', closeModal);
@@ -90,6 +97,5 @@
     }
   });
 </script>
-
 
 {% endblock %}

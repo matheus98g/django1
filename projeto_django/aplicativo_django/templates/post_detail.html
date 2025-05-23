@@ -40,7 +40,6 @@
     <form method="post">
       {% csrf_token %}
       <div class="mb-4">
-        {{ form.body.label_tag }}
         {{ form.body }}
         {% if form.body.errors %}
           <p class="text-sm text-red-600 mt-1">{{ form.body.errors.0 }}</p>
